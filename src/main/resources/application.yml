@@ -1,0 +1,23 @@
+server:
+  port: 8095
+  servlet:
+    context-path: /delta-notification
+    encoding:
+      charset: UTF-8
+      enabled: true
+spring:
+  mail:
+    host: ${MAIL_HOST:}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:}
+          port: ${MAIL_SMTP_PORT:}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS_ENABLE:}
+        transport:
+          protocol: ${MAIL_TRANSPORT_PROTOCOL:}
+    username: ${MAIL_USERNAME:}
+  messages:
+    basename: static/i18n/message

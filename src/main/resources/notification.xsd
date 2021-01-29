@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
+  attributeFormDefault="qualified" elementFormDefault="qualified"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.delta.notification"
+  xmlns:tns="http://www.delta.notification">
+  <xs:annotation>
+    <xs:appinfo>
+      <jaxb:bindings
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+        <jaxb:globalBindings generateIsSetMethod="true" fixedAttributeAsConstantProperty="true">
+          <!--          <jaxb:javaType xmlType="xs:integer" name="java.lang.Integer" />-->
+          <xjc:serializable />
+        </jaxb:globalBindings>
+<!--        <jaxb:bindings>-->
+<!--          <jaxb:bindings node="//xs:simpleType[@name='ResponseType']">-->
+<!--            <jaxb:typesafeEnumClass>-->
+<!--              <jaxb:typesafeEnumMember value="1" name="SINGLE" />-->
+<!--              <jaxb:typesafeEnumMember value="2" name="LIST" />-->
+<!--            </jaxb:typesafeEnumClass>-->
+<!--          </jaxb:bindings>-->
+<!--        </jaxb:bindings>-->
+      </jaxb:bindings>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="emailAuthenticationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="token"/>
+        <xs:element type="xs:string" name="redirectUrl"/>
+        <xs:element type="xs:string" name="subject"/>
+        <xs:element type="xs:string" name="description"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="emailAuthenticationResponse" type="tns:Response"/>
+  <xs:element name="sendNotificationRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="userId"/>
+        <xs:element type="xs:string" name="content"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendNotificationResponse" type="tns:Response"/>
+  <xs:element name="sendSMSRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="phoneNumber"/>
+        <xs:element type="xs:string" name="content"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendSMSResponse" type="tns:Response"/>
+  <xs:element name="sendEmailRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="email"/>
+        <xs:element type="xs:string" name="subject"/>
+        <xs:element type="xs:string" name="header"/>
+        <xs:element type="xs:string" name="body"/>
+        <xs:element type="xs:string" name="footer"/>
+        <xs:element type="xs:string" name="signature"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sendEmailResponse" type="tns:Response"/>
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element type="xs:int" name="code"/>
+      <xs:element type="xs:string" name="message"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
