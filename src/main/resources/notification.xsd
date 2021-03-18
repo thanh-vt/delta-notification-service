@@ -3,6 +3,7 @@
   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
   attributeFormDefault="qualified" elementFormDefault="qualified"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
   targetNamespace="http://www.delta.notification"
   xmlns:tns="http://www.delta.notification">
   <xs:annotation>
@@ -29,7 +30,7 @@
   <xs:element name="emailAuthenticationRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element type="xs:string" name="token"/>
+        <xs:element type="xs:string" name="email"/>
         <xs:element type="xs:string" name="redirectUrl"/>
         <xs:element type="xs:string" name="subject"/>
         <xs:element type="xs:string" name="description"/>
@@ -64,6 +65,7 @@
         <xs:element type="xs:string" name="body"/>
         <xs:element type="xs:string" name="footer"/>
         <xs:element type="xs:string" name="signature"/>
+        <xs:element type="tns:EmailAttachment" name="attachment" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -71,7 +73,13 @@
   <xs:complexType name="Response">
     <xs:sequence>
       <xs:element type="xs:int" name="code"/>
-      <xs:element type="xs:string" name="message"/>
+      <xs:element type="xs:string" name="description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmailAttachment">
+    <xs:sequence>
+      <xs:element name="file" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream" />
+      <xs:element name="fileName" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

@@ -69,6 +69,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EmailAttachment }
+     * 
+     */
+    public EmailAttachment createEmailAttachment() {
+        return new EmailAttachment();
+    }
+
+    /**
      * Create an instance of {@link EmailAuthenticationRequest }
      * 
      */

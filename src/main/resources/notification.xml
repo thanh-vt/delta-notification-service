@@ -1,5 +1,6 @@
 <root targetNamespace="http://www.delta.notification">
   <emailAuthentication>
+    <email>abc@gmail.com</email>
     <token>d6as1d</token>
     <redirectUrl>https://www.youtube.com/watch?v=ExzcwgiIfmw</redirectUrl>
     <subject>Hello</subject>
@@ -20,9 +21,13 @@
     <body>abcxyz</body>
     <footer>abcxyz</footer>
     <signature>xyzabc</signature>
+    <attachment>
+      <file>file</file>
+      <fileName>abc</fileName>
+    </attachment>
   </sendEmail>
   <response>
     <code>012</code>
-    <message>error</message>
+    <description>error</description>
   </response>
 </root>

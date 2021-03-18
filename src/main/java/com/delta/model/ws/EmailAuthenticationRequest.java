@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="token" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="redirectUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="subject" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "token",
+    "email",
     "redirectUrl",
     "subject",
     "description"
@@ -44,7 +44,7 @@ public class EmailAuthenticationRequest
 {
 
     @XmlElement(required = true)
-    protected String token;
+    protected String email;
     @XmlElement(required = true)
     protected String redirectUrl;
     @XmlElement(required = true)
@@ -53,31 +53,31 @@ public class EmailAuthenticationRequest
     protected String description;
 
     /**
-     * Gets the value of the token property.
+     * Gets the value of the email property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getToken() {
-        return token;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * Sets the value of the token property.
+     * Sets the value of the email property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setToken(String value) {
-        this.token = value;
+    public void setEmail(String value) {
+        this.email = value;
     }
 
-    public boolean isSetToken() {
-        return (this.token!= null);
+    public boolean isSetEmail() {
+        return (this.email!= null);
     }
 
     /**

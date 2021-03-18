@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="body" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="footer" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="attachment" type="{http://www.delta.notification}EmailAttachment"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     "header",
     "body",
     "footer",
-    "signature"
+    "signature",
+    "attachment"
 })
 @XmlRootElement(name = "sendEmailRequest")
 public class SendEmailRequest
@@ -59,6 +61,8 @@ public class SendEmailRequest
     protected String footer;
     @XmlElement(required = true)
     protected String signature;
+    @XmlElement(required = true)
+    protected EmailAttachment attachment;
 
     /**
      * Gets the value of the email property.
@@ -226,6 +230,34 @@ public class SendEmailRequest
 
     public boolean isSetSignature() {
         return (this.signature!= null);
+    }
+
+    /**
+     * Gets the value of the attachment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EmailAttachment }
+     *     
+     */
+    public EmailAttachment getAttachment() {
+        return attachment;
+    }
+
+    /**
+     * Sets the value of the attachment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EmailAttachment }
+     *     
+     */
+    public void setAttachment(EmailAttachment value) {
+        this.attachment = value;
+    }
+
+    public boolean isSetAttachment() {
+        return (this.attachment!= null);
     }
 
 }

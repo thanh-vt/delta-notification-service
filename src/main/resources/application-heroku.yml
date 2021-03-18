@@ -5,21 +5,6 @@ server:
     encoding:
       charset: UTF-8
       enabled: true
-  compression:
-    enabled: true
-    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
-    min-response-size: 1024
-  http2:
-    enabled: true
-  ssl:
-    enabled: true
-    enabled-protocols: TLSv1.2
-    key-alias: ${SSL_KEY_ALIAS:}
-    key-password: ${SSL_KEY_PASSWORD:}
-    key-store: classpath:vengeance.jks
-    key-store-password: ${SSL_KEYSTORE_PASSWORD:}
-    key-store-type: JKS
-    protocol: TLS
 spring:
   mail:
     host: ${MAIL_HOST:}
@@ -40,14 +25,9 @@ spring:
     default-encoding: UTF-8
   messages:
     basename: static/i18n/message
+  devtools:
+    add-properties: false
 logging:
   config: classpath:log4j-spring.xml
 folder:
-  temporary: ../tmp
-custom:
-  http-port: 8094
-  https-port: 8095
-  security-policy: CONFIDENTAL
-  connector-scheme: http
-  trust-store-password: ${SSL_TRUSTSTORE_PASSWORD:}
-  trust-store-type: JKS
+  temporary: /tmp

@@ -1,50 +1,61 @@
 package com.delta.config;
 
-import com.delta.constant.WebServiceConstant;
-import com.delta.model.ws.ObjectFactory;
-import javax.servlet.http.HttpServlet;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.ApplicationContext;
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http2.Http2Protocol;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.ws.transport.http.MessageDispatcherServlet;
-import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
-import org.springframework.ws.wsdl.wsdl11.Wsdl11Definition;
-import org.springframework.xml.xsd.XsdSchema;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
+@EnableAsync
 public class CustomBeanConfig {
 
-    @Bean(name = "notification")
-    public Wsdl11Definition usersWsdl11Definition(XsdSchema usersSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("NotificationPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace(WebServiceConstant.NOTIFICATION_NAMESPACE);
-        wsdl11Definition.setServiceName("NotificationService");
-        wsdl11Definition.setResponseSuffix("Response");
-        wsdl11Definition.setRequestSuffix("Request");
-        wsdl11Definition.setFaultSuffix("Fault");
-        wsdl11Definition.setSchema(usersSchema);
-        return wsdl11Definition;
-    }
+    @Value("${custom.http-port}")
+    private Integer httpPort;
+
+    @Value("${custom.https-port}")
+    private Integer httpsPort;
+
+    @Value("${custom.security-policy}")
+    private String securityPolicy;
+
+    @Value("${custom.connector-scheme}")
+    private String connectorScheme;
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    @Primary
-    public ServletRegistrationBean<HttpServlet> messageDispatcherServlet(
-        ApplicationContext applicationContext) {
-        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(applicationContext);
-        servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
+    @Profile({"default","poweredge"})
+    public ServletWebServerFactory servletContainer() {
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+            @Override
+            protected void postProcessContext(Context context) {
+                SecurityConstraint securityConstraint = new SecurityConstraint();
+                // set to CONFIDENTIAL to automatically redirect from http to https port
+                securityConstraint.setUserConstraint(securityPolicy);
+//                securityConstraint.setUserConstraint("NONE");
+                SecurityCollection collection = new SecurityCollection();
+                collection.addPattern("/*");
+                securityConstraint.addCollection(collection);
+                context.addConstraint(securityConstraint);
+            }
+        };
+        tomcat.addAdditionalTomcatConnectors(getHttpConnector());
+        return tomcat;
     }
 
-    @Bean(name = "objectFactory")
-    public ObjectFactory objectFactory() {
-        return new ObjectFactory();
+    private Connector getHttpConnector() {
+        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+        connector.setScheme(connectorScheme);
+        connector.setPort(httpPort);
+        connector.setSecure(false);
+        connector.setRedirectPort(httpsPort);
+        connector.addUpgradeProtocol(new Http2Protocol());
+        return connector;
     }
 }
