@@ -31,3 +31,8 @@ logging:
   config: classpath:log4j-spring.xml
 folder:
   temporary: /tmp
+custom:
+  http-port: 8094
+  https-port: 8095
+  security-policy: CONFIDENTAL
+  connector-scheme: http
