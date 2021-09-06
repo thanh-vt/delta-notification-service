@@ -1,16 +1,10 @@
-package com.delta.config;
+package com.delta.config.general;
 
-import com.delta.model.OutputMessage;
 import com.github.javafaker.Faker;
 import com.github.javafaker.LeagueOfLegends;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableScheduling

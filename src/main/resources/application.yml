@@ -21,6 +21,8 @@ server:
     key-store-type: JKS
     protocol: TLS
 spring:
+  application:
+    name: delta-notification-service
   mail:
     host: ${MAIL_HOST:}
     password: ${MAIL_PASSWORD}
@@ -47,7 +49,16 @@ folder:
 custom:
   http-port: 8094
   https-port: 8095
-  security-policy: CONFIDENTAL
+  security-policy: CONFIDENTIAL
   connector-scheme: http
   trust-store-password: ${SSL_TRUSTSTORE_PASSWORD:}
   trust-store-type: JKS
+eureka:
+  instance:
+    hostname: localhost
+    secure-port-enabled: true
+    non-secure-port-enabled: false
+  #    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka

@@ -47,7 +47,7 @@ folder:
 custom:
   http-port: 8094
   https-port: 8095
-  security-policy: CONFIDENTAL
+  security-policy: CONFIDENTIAL
   connector-scheme: http
   trust-store-password: ${SSL_TRUSTSTORE_PASSWORD:}
   trust-store-type: JKS

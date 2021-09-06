@@ -34,5 +34,5 @@ folder:
 custom:
   http-port: 8094
   https-port: 8095
-  security-policy: CONFIDENTAL
+  security-policy: CONFIDENTIAL
   connector-scheme: http

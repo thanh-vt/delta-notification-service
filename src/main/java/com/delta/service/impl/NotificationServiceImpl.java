@@ -44,7 +44,11 @@ public class NotificationServiceImpl implements NotificationService {
     public String emailAuthentication(EmailAuthenticationRequest request) {
         String recipientAddress = request.getEmail();
         String token = UUID.randomUUID().toString();
-        String confirmationUrl = request.getRedirectUrl() + "?token=" + token;
+        String confirmationUrl = request.getRedirectUrl()
+            + "?"
+            + "token=" + token
+            + "&"
+            + "email=" + request.getEmail();
         SimpleMailMessage email = new SimpleMailMessage();
         email.setFrom(CommonConstant.APP_CODE);
         email.setTo(recipientAddress);

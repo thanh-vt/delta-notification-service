@@ -1,4 +1,4 @@
-package com.delta.config;
+package com.delta.config.general;
 
 import com.delta.constant.WebServiceConstant;
 import com.delta.model.ws.ObjectFactory;
